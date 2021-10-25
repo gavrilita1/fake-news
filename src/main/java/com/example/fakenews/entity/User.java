@@ -32,6 +32,11 @@ public class User {
         this.checkIds = checkIds;
     }
 
+    // getUserId() nu era definit
+    public long getUserId() {
+    	return this.userId;
+    }
+    
     public String getUserName() {
         return userName;
     }
