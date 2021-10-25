@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name="USER")
 public class User {
 
     @Id
@@ -21,7 +22,7 @@ public class User {
 
     @Column(name= "USER_CHECK_HISTORY")
     private Integer[] checkIds = new Integer[0];
-
+ 
     public User() {
     }
 
