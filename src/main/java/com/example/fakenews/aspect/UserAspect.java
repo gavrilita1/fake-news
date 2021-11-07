@@ -20,7 +20,6 @@ public class UserAspect {
         System.out.println("UserController finished executing saveUser()");
     }
 
-
     // UserController.addUsers()
     @Before("execution(* com.example.fakenews.controller.UserController.addUsers(..))")
     public void beforeAddUsers() {
