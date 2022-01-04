@@ -5,6 +5,7 @@ import com.example.fakenews.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -13,6 +14,15 @@ public class TweetController {
 
     @Autowired
     private TweetService tweetService;
+
+    @GetMapping(value = "/testAPI")
+    public void tweetUser() {
+        try {
+            tweetService.tweetUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @PostMapping
     public Tweet saveTweet(@RequestBody Tweet tweet) {
@@ -43,4 +53,5 @@ public class TweetController {
     public void deleteTweet(@PathVariable(name = "tweetId") Long tweetId) {
         tweetService.deleteTweet(tweetId);
     }
+
 }
