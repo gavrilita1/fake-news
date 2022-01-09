@@ -1,9 +1,11 @@
 package com.example.fakenews.controller;
 
 import com.example.fakenews.entity.Tweet;
+import com.example.fakenews.service.AlgorithmService;
 import com.example.fakenews.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import twitter4j.TwitterException;
 
 
 import java.util.List;
@@ -15,13 +17,11 @@ public class TweetController {
     @Autowired
     private TweetService tweetService;
 
-    @GetMapping(value = "/testAPI")
-    public void tweetUser() {
-        try {
-            tweetService.tweetUser();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
+    @GetMapping(value = "/testAPI/{tweetId}")
+    public AlgorithmService tweetUser(@PathVariable(name = "tweetId") Long tweetId) throws TwitterException {
+            return tweetService.tweetUser(tweetId);
     }
 
     @PostMapping

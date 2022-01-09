@@ -2,21 +2,15 @@ package com.example.fakenews.service;
 
 import com.example.fakenews.entity.Tweet;
 import com.example.fakenews.repository.TweetRepository;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.List;
 
 import twitter4j.*;
+import twitter4j.api.UsersResources;
 import twitter4j.auth.AccessToken;
-import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 
 
 @Service
@@ -39,23 +33,23 @@ public class TweetService implements iTweetService {
 
     @Autowired
     TweetRepository tweetRepository;
+    @Autowired
+    AlgorithmService algorithmService;
 
-    public void tweetUser() throws TwitterException {
+    public AlgorithmService tweetUser(Long tweetId) throws TwitterException {
+
         final Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(consumerKeyStr, consumerSecretStr);
         AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecretStr);
         twitter.setOAuthAccessToken(accessToken);
 
+        long tweetID=tweetId;
 
-        String tweetID = "1478232471942672385";
+        Status status = twitter.showStatus(tweetID);
+        UsersResources user = twitter.users();
+        AlgorithmService run = algorithmService.algorithmRun(status, user);
 
-
-        Status status = twitter.showStatus(Long.parseLong(tweetID));
-        if (status == null) {
-        } else {
-            System.out.println("@" + status.getUser().getScreenName()
-                    + " - " + status.getText());
-        }
+        return run;
     }
 
     @Override
