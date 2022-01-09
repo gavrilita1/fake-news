@@ -13,6 +13,7 @@ public class UserService implements iUserService {
     @Autowired
     UserRepository userRepository;
 
+
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -40,7 +41,6 @@ public class UserService implements iUserService {
         User existingUser = userRepository.findById(user.getUserId()).orElse(null);
         existingUser.setUserName(user.getUserName());
         existingUser.setUserPassword(user.getUserPassword());
-        existingUser.setCheckIds(user.getCheckIds());
         return userRepository.save(existingUser);
     }
 

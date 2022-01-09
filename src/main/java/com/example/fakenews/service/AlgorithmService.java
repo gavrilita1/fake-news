@@ -1,6 +1,9 @@
 package com.example.fakenews.service;
 
+import com.example.fakenews.entity.Check;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.User;
@@ -13,11 +16,13 @@ import java.util.*;
 
 
 @Service
+@CrossOrigin(origins = "*")
 public class AlgorithmService{
 
     public int score = 100;
     public List<String> reason = new ArrayList<String>();
-
+    @Autowired
+    private CheckService checkService;
 
 
     public AlgorithmService algorithmRun(Status status, UsersResources user) throws TwitterException {
@@ -41,6 +46,10 @@ public class AlgorithmService{
         //hasRepetitiveStructures(text);
         dateCheck(createdAtUser,run);
         isVerified(isValid,run);
+
+        long id=status.getId()%1000000000;
+        checkUpdateHistory((int)id,run);
+
         if(run.score==100){
             run.reason.add("True");
         }
@@ -138,5 +147,10 @@ public class AlgorithmService{
             run.score-=10;
             run.reason.add("Account is not verified");
         }
+    }
+
+    public void checkUpdateHistory(int id, AlgorithmService run){
+        Check check = new Check(id,run.score,run.reason.toString());
+        checkService.saveCheck(check);
     }
 }

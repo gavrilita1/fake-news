@@ -1,8 +1,11 @@
 package com.example.fakenews.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,20 +21,10 @@ public class User {
     private String userName;
 
     @Column(name = "USER_PASSWORD")
+    //@JsonIgnore
     private String userPassword;
 
-    @Column(name= "USER_CHECK_HISTORY")
-    private Integer[] checkIds = new Integer[0];
  
-    public User() {
-    }
-
-    public User(long userId, String userName, String userPassword, Integer[] checkIds) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.checkIds = checkIds;
-    }
 
     public String getUserName() {
         return userName;
@@ -49,11 +42,4 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public Integer[] getCheckIds() {
-        return checkIds;
-    }
-
-    public void setCheckIds(Integer[] checkIds) {
-        this.checkIds = checkIds;
-    }
 }

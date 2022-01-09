@@ -1,9 +1,13 @@
 package com.example.fakenews.controller;
 
 import com.example.fakenews.entity.Check;
+import com.example.fakenews.entity.User;
+import com.example.fakenews.service.AlgorithmService;
 import com.example.fakenews.service.CheckService;
+import com.example.fakenews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import twitter4j.TwitterException;
 
 import java.util.List;
 
@@ -13,6 +17,14 @@ public class CheckController {
 
     @Autowired
     private CheckService checkService;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(value = "/tweetCheck/{tweetId}")
+    public AlgorithmService tweetCheck(@PathVariable(name = "tweetId") Long tweetId) throws TwitterException {
+        return checkService.tweetCheck(tweetId);
+        //apelam si username add history, si check populate
+    }
 
     @PostMapping
     public Check saveCheck(@RequestBody Check check) {

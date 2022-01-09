@@ -17,13 +17,6 @@ public class TweetController {
     @Autowired
     private TweetService tweetService;
 
-
-
-    @GetMapping(value = "/testAPI/{tweetId}")
-    public AlgorithmService tweetUser(@PathVariable(name = "tweetId") Long tweetId) throws TwitterException {
-            return tweetService.tweetUser(tweetId);
-    }
-
     @PostMapping
     public Tweet saveTweet(@RequestBody Tweet tweet) {
         return tweetService.saveTweet(tweet);
