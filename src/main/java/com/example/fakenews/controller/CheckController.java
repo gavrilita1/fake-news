@@ -1,7 +1,6 @@
 package com.example.fakenews.controller;
 
 import com.example.fakenews.entity.Check;
-import com.example.fakenews.entity.User;
 import com.example.fakenews.service.AlgorithmService;
 import com.example.fakenews.service.CheckService;
 import com.example.fakenews.service.UserService;
@@ -20,10 +19,9 @@ public class CheckController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/tweetCheck/{tweetId}")
-    public AlgorithmService tweetCheck(@PathVariable(name = "tweetId") Long tweetId) throws TwitterException {
-        return checkService.tweetCheck(tweetId);
-        //apelam si username add history, si check populate
+    @PostMapping(value = "/tweetCheck/{tweetId}/{userId}")
+    public AlgorithmService tweetCheck(@PathVariable(name = "tweetId") Long tweetId, @PathVariable(name = "userId") Long userId, @RequestBody String url) throws TwitterException {
+        return checkService.tweetCheck(tweetId, userId, url);
     }
 
     @PostMapping
@@ -44,6 +42,11 @@ public class CheckController {
     @GetMapping("{checkId}")
     public Check getCheck(@PathVariable(name = "checkId") Long checkId) {
         return checkService.getCheck(checkId);
+    }
+
+    @GetMapping("/history")
+    public List<Check> getHistory(@RequestBody Long userId) {
+        return checkService.checkHistory(userId);
     }
 
     @PutMapping()

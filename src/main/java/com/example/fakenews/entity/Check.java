@@ -8,55 +8,74 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="CHECKS")
+@Table(name = "CHECKS")
+@NamedQueries({@NamedQuery(name = "Check.findByUserId", query = "SELECT check FROM Check check WHERE check.userId = ?1")})
 public class Check {
 
-	@Id
-    @Column(name="CHECK_ID")
+    @Id
+    @Column(name = "CHECK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long checkId;
 
-    @Column(name= "TWEET_ID")
+    @Column(name = "USER_ID")
+    private long userId;
+
+    @Column(name = "TWEET_ID")
     private int tweetId;
 
-    @Column(name= "VERDICT")
-    private int verdict;
-    
-    @Column(name= "REASON")
+    @Column(name = "Score")
+    private int score;
+
+    @Column(name = "REASON")
     private String reason;
 
+    @Column(name = "URL")
+    private String url;
 
-	public Check(int tweetId, int verdict, String reason) {
-		this.tweetId = tweetId;
-		this.verdict = verdict;
-		this.reason = reason;
-	}
+    public Check() {
+    }
 
-	public long getCheckId() {
-		return checkId;
-	}
+    public Check(long userId, int tweetId, int score, String reason, String url) {
+        this.userId = userId;
+        this.tweetId = tweetId;
+        this.score = score;
+        this.reason = reason;
+        this.url = url;
+    }
 
-	public int getTweetId() {
-		return tweetId;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public void setTweetId(int tweetId) {
-		this.tweetId = tweetId;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public int getVerdict() {
-		return verdict;
-	}
+    public long getCheckId() {
+        return checkId;
+    }
 
-	public void setVerdict(int verdict) {
-		this.verdict = verdict;
-	}
+    public int getTweetId() {
+        return tweetId;
+    }
 
-	public String getReason() {
-		return reason;
-	}
+    public void setTweetId(int tweetId) {
+        this.tweetId = tweetId;
+    }
 
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int verdict) {
+        this.score = verdict;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 }

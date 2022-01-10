@@ -7,6 +7,7 @@ public class Credentials {
     private long userId;
     private String userName;
     private String userPassword;
+    private String email;
     private boolean login;
 
     public long getUserId() {
@@ -39,5 +40,13 @@ public class Credentials {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

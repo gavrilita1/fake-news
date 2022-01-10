@@ -40,19 +40,18 @@ public class UserService implements iUserService {
 
     public Credentials login(Credentials credentials) {
 
-        User user =  userRepository.findByUsername(credentials.getUserName());
+        User user = userRepository.findByUsername(credentials.getUserName());
 
-        if(user!=null){
-            if(user.getUserPassword().equals(credentials.getUserPassword())){
+        if (user != null) {
+            if (user.getUserPassword().equals(credentials.getUserPassword())) {
                 credentials.setUserId(user.getUserId());
+                credentials.setEmail(user.getEmail());
                 credentials.setLogin(true);
-            }
-            else {
+            } else {
                 credentials.setUserId(user.getUserId());
                 credentials.setLogin(false);
             }
-        }
-        else{
+        } else {
             credentials.setUserId(99);
             credentials.setLogin(false);
         }
@@ -61,17 +60,16 @@ public class UserService implements iUserService {
 
     public Credentials signUp(Credentials credentials) {
 
-        User user =  userRepository.findByUsername(credentials.getUserName());
+        User user = userRepository.findByUsername(credentials.getUserName());
 
-        if(user!=null)
-        {
+        if (user != null) {
             credentials.setUserId(user.getUserId());
             credentials.setLogin(false);
-        }
-        else {
+        } else {
             User user2 = new User();
             user2.setUserName(credentials.getUserName());
             user2.setUserPassword(credentials.getUserPassword());
+            user2.setEmail(credentials.getEmail());
             credentials.setLogin(true);
             userRepository.save(user2);
         }

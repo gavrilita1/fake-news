@@ -9,14 +9,12 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="USER")
-@NamedQueries({
-        @NamedQuery(name="User.findByUsername", query="SELECT user FROM User user WHERE user.userName = ?1")
-})
+@Table(name = "USER")
+@NamedQueries({@NamedQuery(name = "User.findByUsername", query = "SELECT user FROM User user WHERE user.userName = ?1")})
 public class User {
 
     @Id
-    @Column(name="USER_ID")
+    @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
@@ -24,10 +22,10 @@ public class User {
     private String userName;
 
     @Column(name = "USER_PASSWORD")
-    //@JsonIgnore
     private String userPassword;
 
-
+    @Column(name = "EMAIL")
+    private String email;
 
     public long getUserId() {
         return userId;
@@ -36,6 +34,7 @@ public class User {
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
     public String getUserName() {
         return userName;
     }
@@ -52,4 +51,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

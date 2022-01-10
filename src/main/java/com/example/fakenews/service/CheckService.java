@@ -34,8 +34,7 @@ public class CheckService implements iCheckService {
     @Autowired
     AlgorithmService algorithmService;
 
-    public AlgorithmService tweetCheck(Long tweetId) throws TwitterException {
-
+    public AlgorithmService tweetCheck(Long tweetId, Long userId, String url) throws TwitterException {
         final Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(consumerKeyStr, consumerSecretStr);
         AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecretStr);
@@ -45,12 +44,15 @@ public class CheckService implements iCheckService {
 
         Status status = twitter.showStatus(tweetID);
         UsersResources user = twitter.users();
-        AlgorithmService run = algorithmService.algorithmRun(status, user);
-
+        AlgorithmService run = algorithmService.algorithmRun(status, user, userId, url);
 
         return run;
     }
 
+    public List<Check> checkHistory(Long userId) {
+        List<Check> checks = checkRepository.findByUserId(userId);
+        return checks;
+    }
 
     @Override
     public Check saveCheck(Check check) {
@@ -78,7 +80,7 @@ public class CheckService implements iCheckService {
     public Check updateCheck(Check check) {
         Check existingCheck = checkRepository.findById(check.getCheckId()).orElse(null);
         //existingCheck.setTweetId(check.getTweetId());
-        existingCheck.setVerdict(check.getVerdict());
+        existingCheck.setScore(check.getScore());
         existingCheck.setReason(check.getReason());
         return checkRepository.save(existingCheck);
     }

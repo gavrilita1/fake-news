@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/userName")
-    public User getUserByName(@RequestBody String  userName) {
+    public User getUserByName(@RequestBody String userName) {
         return userService.getUserByName(userName);
     }
 
