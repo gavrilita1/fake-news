@@ -11,6 +11,7 @@ import twitter4j.TwitterException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/check/")
 public class CheckController {
 
@@ -44,8 +45,8 @@ public class CheckController {
         return checkService.getCheck(checkId);
     }
 
-    @GetMapping("/history")
-    public List<Check> getHistory(@RequestBody Long userId) {
+    @PostMapping("/history/{userId}")
+    public List<Check> getHistory(@PathVariable(name="userId") Long userId) {
         return checkService.checkHistory(userId);
     }
 

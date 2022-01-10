@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/user/")
 public class UserController {
 
@@ -42,7 +43,7 @@ public class UserController {
         return userService.getUserByName(userName);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Credentials login(@RequestBody Credentials credentials) {
         return userService.login(credentials);
     }

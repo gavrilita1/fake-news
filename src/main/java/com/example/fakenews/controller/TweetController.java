@@ -11,6 +11,7 @@ import twitter4j.TwitterException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/tweet/")
 public class TweetController {
 
