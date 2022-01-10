@@ -10,6 +10,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="USER")
+@NamedQueries({
+        @NamedQuery(name="User.findByUsername", query="SELECT user FROM User user WHERE user.userName = ?1")
+})
 public class User {
 
     @Id
@@ -17,15 +20,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME", unique = true)
     private String userName;
 
     @Column(name = "USER_PASSWORD")
     //@JsonIgnore
     private String userPassword;
 
- 
 
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
     public String getUserName() {
         return userName;
     }

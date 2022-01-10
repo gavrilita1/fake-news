@@ -112,6 +112,7 @@ public class AlgorithmService{
      */
 
 
+
     public void dateCheck(Date createdAt, AlgorithmService run){
         //The user account has been created in the last 10 days.
         if(!checkDateLimit(createdAt, 10)){
@@ -138,8 +139,8 @@ public class AlgorithmService{
     }
 
 
-    public void isVerified(boolean isValid, AlgorithmService run){
-        if(isValid){
+    public void isVerified(boolean isVerified, AlgorithmService run){
+        if(isVerified){
             run.score+=10;
             run.reason.add("Account is verified");
         }
